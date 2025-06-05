@@ -7,7 +7,8 @@ const authRoutes = require('./routes/auth');
 const app = express();
 
 let corsOptions = {
-   origin : ['http://localhost:5173'],
+   origin : ['http://localhost:5173', 'https://production-domain.com'],
+   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }
 
 app.use(cors(corsOptions)); 

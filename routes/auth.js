@@ -51,6 +51,23 @@ router.post('/login', async (req, res) => {
     }
 })
 
+router.post('/validate-token', async (req, res) => {
+    const token = req.body.token;
+    if (!token) {
+        return res.status(401).json({ message: 'No token provided' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await AuthUser.findById(decoded.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json({ valid: true, user: { id: user._id, email: user.email } });
+    } catch (error) {
+        res.status(401).json({ valid: false, message: 'Invalid token' });
+    }
+})
 
 
 module.exports = router;
