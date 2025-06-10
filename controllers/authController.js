@@ -41,8 +41,8 @@ const login =  async (req, res) => {
             return res.status(401).json({ message: 'Invalid password' });
         }
 
-        const accessToken = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
-        const refreshToken = jwt.sign({ id: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1h' });
+        const accessToken = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1hr' });
+        const refreshToken = jwt.sign({ id: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '12h' });
 
         //save refresh token to user
         user.refreshToken = refreshToken;
