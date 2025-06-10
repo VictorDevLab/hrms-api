@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
   employment: {
     type: Object,
   },
-  hr: {
+  leaves: {
     type: Object,
   },
   compensation: {

@@ -7,7 +7,6 @@ const verifyJWT = (req, res, next) => {
     if(!authHeader) {
         return res.status(401).json({ message: 'Authorization header missing' });
     }
-    console.log('authHeader:', authHeader); //Bearer <token>
     const token = authHeader.split(' ')[1]; // Extract the token from the header
     if (!token) {
         return res.status(401).json({ message: 'Token missing' });
