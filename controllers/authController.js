@@ -1,7 +1,8 @@
-const express = require('express');
 const bcrypt = require('bcrypt');   
 const jwt = require('jsonwebtoken');
-const AuthUser = require('../models/user'); 
+const AuthUser = require('../models/User'); 
+require('dotenv').config();
+
 
 const registerUser = async (req, res) => {
   const { email, password } = req.body;
@@ -42,7 +43,7 @@ const login =  async (req, res) => {
         }
 
         const accessToken = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1hr' });
-        const refreshToken = jwt.sign({ id: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '12h' });
+        const refreshToken = jwt.sign({ id: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1hr' });
 
         //save refresh token to user
         user.refreshToken = refreshToken;
@@ -53,6 +54,7 @@ const login =  async (req, res) => {
             sameSite: 'Strict', 
             maxAge: 60 * 60 * 1000 
         });
+        console.log("cookie", {"jwt": refreshToken})
         res.json({ accessToken, user: { id: user._id } });
     } catch (error) {
         res.status(500).json({error: error.message});
