@@ -1,12 +1,14 @@
 const express = require('express');
-const newUser = require('../models/user');
+const newUser = require('../models/User');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
 
 const getAllUsers = async (req, res) => {
      try {
-        const users = await newUser.find();
+        const users = await newUser.find().select('-password').lean();
+        if(!users?.length) {
+            return res.status(400).json({message: "No Users Found"})
+        }
         res.status(200).json(users);
      } catch (error) {
         console.error('Error fetching users:', error);
@@ -16,8 +18,8 @@ const getAllUsers = async (req, res) => {
 const getUserById = async (req, res) => {
     try {
         const userId = req.params.id
-        const user = await newUser.findById(userId)
-        if (!user) res.status(400).json({ message: "No user found" })
+        const user = await newUser.findById(userId).select('-password').lean();
+        if (!user) return res.status(400).json({ message: "No user found" })
         res.json(user)
     } catch (error) {
         console.error('Error fetching user:', error);
@@ -43,7 +45,8 @@ const createUser = async (req, res) => {
         const existingUser = await newUser.findOne({email});
         console.log("existing user", existingUser);
         if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
+            //409 - conflict
+            return res.status(409).json({ message: 'User already exists' });
         }
         const hashedPassword = await bcrypt.hash(password, 10)
         user.password = hashedPassword;

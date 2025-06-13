@@ -5,14 +5,18 @@ require('dotenv').config();
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
 const jwtVerify = require('./middleware/verifyJWT');
+const cookieParser = require('cookie-parser')
 const authRoutes = require('./routes/auth'); 
+const refreshRoute = require('./routes/refresh'); 
 const userRoutes = require('./routes/users');
 
 const app = express();
 
 let corsOptions = {
-   origin : ['http://localhost:5173', 'https://production-domain.com'],
+   origin : ['http://localhost:5173', 'https://production-domain.com', 'https://www.google.com'],
+   credentials: true,
    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+   allowedHeaders: ['Content-Type', 'Authorization'],
 }
 
 // custom middleware logger
@@ -20,6 +24,8 @@ app.use(logger);
 app.use(cors(corsOptions)); 
 const port = process.env.PORT || 3001;
 app.use(express.json());
+app.use(cookieParser())
+
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
@@ -32,8 +38,9 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 
 app.use('/api/auth', authRoutes);
-app.use(jwtVerify); // Apply JWT verification middleware to all routes after auth
-app.use('/api/users', userRoutes);
+app.use('/api/refresh', refreshRoute);
+
+app.use('/api/users',jwtVerify, userRoutes);
 
 
 
