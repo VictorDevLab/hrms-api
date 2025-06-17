@@ -9,11 +9,12 @@ const cookieParser = require('cookie-parser')
 const authRoutes = require('./routes/auth'); 
 const refreshRoute = require('./routes/refresh'); 
 const userRoutes = require('./routes/users');
+const requestRoutes = require('./routes/requests');
 
 const app = express();
 
 let corsOptions = {
-   origin : ['http://localhost:5173', 'https://production-domain.com', 'https://www.google.com'],
+   origin : ['http://localhost:5173', 'https://production-domain.com'],
    credentials: true,
    methods: ['GET', 'POST', 'PUT', 'DELETE'],
    allowedHeaders: ['Content-Type', 'Authorization'],
@@ -41,6 +42,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/refresh', refreshRoute);
 
 app.use('/api/users',jwtVerify, userRoutes);
+app.use('/api/requests',jwtVerify, requestRoutes);
 
 
 
