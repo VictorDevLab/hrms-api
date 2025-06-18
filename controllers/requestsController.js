@@ -1,6 +1,18 @@
 const express = require('express');
 const requestModel = require('../models/request');
 
+const getAllRequests = async (req, res) => {
+    try {
+        const requests = await requestModel.find().lean();
+        if(!requests?.length) {
+            return res.status(400).json({message: "No Requests Found"})
+        }
+        res.status(200).json(requests);
+     } catch (error) {
+        console.error('Error fetching requests:', error);
+        res.status(500).json({ message: 'Internal server error' });
+     }
+}
 const createLeaveRequest = async (req, res) => {
     const { userId, leaveType,leaveOption, startDate, endDate, emergencyContact, notificationEmail, reason, approver, numberOfDays } = req.body;
     if (!userId || !leaveType || !startDate || !endDate || !reason || !approver || !numberOfDays) {
@@ -34,6 +46,19 @@ const createLeaveRequest = async (req, res) => {
     }
 }
 
+const getRequestsByUserId = async(req, res) => {
+    const id = req.params.id;
+    try {
+        const requests = await requestModel.find({userId: id});
+        res.status(200).json(requests);
+    } catch (error) {
+        console.log("Error fetching requests:", error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
 module.exports = {
-    createLeaveRequest
+    createLeaveRequest,
+    getRequestsByUserId,
+    getAllRequests
 }
