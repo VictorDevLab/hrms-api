@@ -40,7 +40,7 @@ const createProject = async(req, res) => {
     }
 }
 
-const updateProject = async (req, res) => {
+const updateProjectById = async (req, res) => {
     const projectId = req.params.id
     const { assignedTo, title, description, status, priority, dueDate } = req.body
 
@@ -59,7 +59,7 @@ const updateProject = async (req, res) => {
     }
 }
 
-const deleteProject = async(req, res) => {
+const deleteProjectById = async(req, res) => {
     const projectId = req.params.id
     try {
         const project = await ProjectModel.findByIdAndDelete(projectId)
@@ -75,7 +75,7 @@ const deleteProject = async(req, res) => {
 
 module.exports = {
     createProject,
-    updateProject,
-    deleteProject,
+    updateProjectById,
+    deleteProjectById,
     getAllProjects
 }

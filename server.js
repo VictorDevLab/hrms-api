@@ -11,6 +11,7 @@ const refreshRoute = require('./routes/refresh');
 const userRoutes = require('./routes/users');
 const requestRoutes = require('./routes/requests');
 const taskRoutes = require('./routes/tasks')
+const projectRoutes = require('./routes/projects')
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use('/api/refresh', refreshRoute);
 app.use('/api/users',jwtVerify, userRoutes);
 app.use('/api/requests',jwtVerify, requestRoutes);
 app.use('/api/tasks',jwtVerify, taskRoutes);
+app.use('/api/projects',jwtVerify, projectRoutes);
 
 
 
