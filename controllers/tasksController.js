@@ -12,7 +12,7 @@ const getAllTasks = async (req, res) => {
        res.status(500).json({ message: 'Internal server error' });
     }
 }
-const createTask = async() => {
+const createTask = async(req, res) => {
     const {assignedTo, title, description, status, priority, dueDate, project} = req.body
 
     if(!assignedTo|| !title|| !description|| !status|| !priority|| !dueDate) {
@@ -41,7 +41,7 @@ const createTask = async() => {
     }
 }
 
-const updateTask = async (req, res) => {
+const updateTaskById = async (req, res) => {
     const taskId = req.params.id
     const { assignedTo, title, description, status, priority, dueDate, project } = req.body
 
@@ -60,7 +60,7 @@ const updateTask = async (req, res) => {
     }
 }
 
-const deleteTask = async(req, res) => {
+const deleteTaskById = async(req, res) => {
     const taskId = req.params.id
     try {
         const task = await TaskModel.findByIdAndDelete(taskId)
@@ -76,7 +76,7 @@ const deleteTask = async(req, res) => {
 
 module.exports = {
     createTask,
-    updateTask,
-    deleteTask,
+    updateTaskById,
+    deleteTaskById,
     getAllTasks
 }
