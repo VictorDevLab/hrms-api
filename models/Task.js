@@ -18,7 +18,7 @@ const taskSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Created', 'In Progress', 'Completed'],
+        enum: ['Created', 'In Progress', 'Completed', 'On Hold'],
         default: 'Created'
     },
     priority: {
@@ -31,8 +31,9 @@ const taskSchema = new mongoose.Schema({
         required: true
     },
     project: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Project',
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: 'Project',
+         type: String,
     }
 }, { timestamps: true });
 

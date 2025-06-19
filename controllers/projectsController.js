@@ -12,7 +12,7 @@ const getAllProjects = async (req, res) => {
        res.status(500).json({ message: 'Internal server error' });
     }
 }
-const createProject = async() => {
+const createProject = async(req, res) => {
     const {assignedTo, title, description, status, priority, dueDate} = req.body
 
     if(!assignedTo|| !title|| !description|| !status|| !priority|| !dueDate) {
