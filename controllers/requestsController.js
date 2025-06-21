@@ -1,5 +1,6 @@
 const express = require('express');
 const requestModel = require('../models/request');
+const userModel = require('../models/User');
 
 const getAllRequests = async (req, res) => {
     try {
@@ -7,7 +8,15 @@ const getAllRequests = async (req, res) => {
         if(!requests?.length) {
             return res.status(400).json({message: "No Requests Found"})
         }
-        res.status(200).json(requests);
+        //return the requests with user details
+        const requestsWithUserDetails = await Promise.all(requests.map(async (request) => {
+            const user = await userModel.findById(request.userId).lean();
+            return {
+                ...request,
+                user: user ? { id: user._id, name: `${user.personal.firstName} ${user.personal.lastName}`, image: user.personal.image } : null
+            };
+        }));
+        res.status(200).json(requestsWithUserDetails);
      } catch (error) {
         console.error('Error fetching requests:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -49,8 +58,15 @@ const createLeaveRequest = async (req, res) => {
 const getRequestsByUserId = async(req, res) => {
     const id = req.params.id;
     try {
-        const requests = await requestModel.find({userId: id});
-        res.status(200).json(requests);
+        const requests = await requestModel.find({userId: id}).lean();
+        const requestsWithUserDetails = await Promise.all(requests.map(async (request)=> {
+            const user = await userModel.findById(request.userId).lean()
+            return {
+                ...request,
+                user: user ? {id: user._id, name: `${user.personal.firstName} ${user.personal.firstName}`, image: user.personal.image} : null
+            }
+        }))
+        res.status(200).json(requestsWithUserDetails);
     } catch (error) {
         console.log("Error fetching requests:", error);
         res.status(500).json({ message: 'Internal server error' });
