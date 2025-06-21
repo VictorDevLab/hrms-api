@@ -61,7 +61,37 @@ const login =  async (req, res) => {
     }
 }
 
+const logout = async (req, res) => {
+  //on client side also delete the access token
+   try {
+          const cookies = req.cookies
+          if (!cookies?.jwt) {
+              console.log('No jwt cookie found');
+              return res.sendStatus(204)
+          }
+          const refreshToken = cookies.jwt
+          const user = await AuthUser.findOne({ refreshToken });
+          if (!user) {
+              res.clearCookie('jwt', { httpOnly: true, secure: process.env.NODE_ENV === 'production', maxAge: 60 * 60 * 1000 });
+              return res.sendStatus(204)
+          }
+          //Delete refresh token from user
+          user.refreshToken = '';
+          await user.save();
+          res.clearCookie('jwt', { 
+            httpOnly: true, 
+            secure: process.env.NODE_ENV === 'production', 
+            maxAge: 60 * 60 * 1000 
+          });
+          res.sendStatus(204); 
+  
+      } catch (error) {
+          res.status(500).json({ error: error.message });
+      }
+}
+
 module.exports = {
     registerUser,
-    login
+    login,
+    logout
 };
