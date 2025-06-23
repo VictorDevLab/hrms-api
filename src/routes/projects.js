@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const projectsController = require('../controllers/projectsController')
+const projectsController = require('../src/controllers/projectsController')
 
 router.get('/', projectsController.getAllProjects)
 router.put('/:id', projectsController.updateProjectById)

@@ -6,12 +6,12 @@ const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
 const jwtVerify = require('./middleware/verifyJWT');
 const cookieParser = require('cookie-parser')
-const authRoutes = require('./routes/auth'); 
-const refreshRoute = require('./routes/refresh'); 
-const userRoutes = require('./routes/users');
-const requestRoutes = require('./routes/requests');
-const taskRoutes = require('./routes/tasks')
-const projectRoutes = require('./routes/projects')
+const authRoutes = require('./src/routes/auth'); 
+const refreshRoute = require('./src/routes/refresh'); 
+const userRoutes = require('./src/routes/users');
+const requestRoutes = require('./src/routes/requests');
+const taskRoutes = require('./src/routes/tasks')
+const projectRoutes = require('./src/routes/projects')
 
 const app = express();
 
