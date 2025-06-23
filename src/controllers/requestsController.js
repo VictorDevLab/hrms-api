@@ -1,5 +1,5 @@
 const express = require('express');
-const requestModel = require('../models/request');
+const requestModel = require('../models/Request');
 const userModel = require('../models/User');
 
 const getAllRequests = async (req, res) => {
