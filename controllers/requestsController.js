@@ -63,7 +63,7 @@ const getRequestsByUserId = async(req, res) => {
             const user = await userModel.findById(request.userId).lean()
             return {
                 ...request,
-                user: user ? {id: user._id, name: `${user.personal.firstName} ${user.personal.firstName}`, image: user.personal.image} : null
+                user: user ? {id: user._id, name: `${user.personal.firstName} ${user.personal.lastName}`, image: user.personal.image} : null
             }
         }))
         res.status(200).json(requestsWithUserDetails);
