@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const tasksController = require('../src/controllers/tasksController')
+const tasksController = require('../controllers/tasksController')
 
 router.get('/', tasksController.getAllTasks)
 router.put('/:id', tasksController.updateTaskById)
