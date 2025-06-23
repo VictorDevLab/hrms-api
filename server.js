@@ -16,10 +16,10 @@ const projectRoutes = require('./src/routes/projects')
 const app = express();
 
 let corsOptions = {
-   origin : ['http://localhost:5173', 'https://alphahrms.vercel.app/'],
-   credentials: true,
-   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-   allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: ['http://localhost:5173', 'https://alphahrms.vercel.app', 'https://hrms-admin-iz6x-git-main-victor-koomes-projects.vercel.app', 'https://hrms-admin-iz6x-21nk5mqby-victor-koomes-projects.vercel.app/'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }
 
 // custom middleware logger
