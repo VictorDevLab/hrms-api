@@ -12,6 +12,7 @@ const userRoutes = require('./src/routes/users');
 const requestRoutes = require('./src/routes/requests');
 const taskRoutes = require('./src/routes/tasks')
 const projectRoutes = require('./src/routes/projects')
+const assetsRoutes = require('./src/routes/assets');
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use('/api/users',jwtVerify, userRoutes);
 app.use('/api/requests',jwtVerify, requestRoutes);
 app.use('/api/tasks',jwtVerify, taskRoutes);
 app.use('/api/projects',jwtVerify, projectRoutes);
+app.use('/api/assets',jwtVerify, assetsRoutes);
 
 
 
