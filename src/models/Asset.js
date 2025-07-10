@@ -16,7 +16,8 @@ const assetSchema = new mongoose.Schema({
         unique: true
     },
     assignedTo: {
-        type: mongoose.Schema.Types.ObjectId,
+        //type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'User',
         required: false
     },
@@ -34,3 +35,5 @@ const assetSchema = new mongoose.Schema({
         required: false
     }
 }, { timestamps: true });
+
+module.exports = mongoose.model('Asset', assetSchema);

@@ -13,7 +13,8 @@ const getAllAssets = async (req, res) => {
     }
 }
 const createAsset = async (req, res) => {
-    const { assetName, assetType, assignedTo, status, description } = req.body;
+    const { assetName, assetType, assignedTo, status, description, assetCode } = req.body;
+    console.log("req body", req.body)
 
     if (!assetName || !assetType) {
         return res.status(400).json({ message: 'All fields are required' });
