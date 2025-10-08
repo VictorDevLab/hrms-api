@@ -19,7 +19,6 @@ const createAsset = async (req, res) => {
     if (!assetName || !assetType) {
         return res.status(400).json({ message: 'All fields are required' });
     }
-
     try {
         const newAsset = new AssetsModel({
             assetName,
@@ -38,7 +37,6 @@ const createAsset = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
-
 const getAssetById = async (req, res) => {
     const assetId = req.params.id;
     try {
