@@ -1,1 +1,68 @@
 # hrms-api
+
+
+  <!-- {
+    path: '/',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/my-work',
+    name: 'MyWork',
+    component: MyWork
+  },
+  {
+    path: '/hr-self-service',
+    name: 'HRSelfService',
+    component: HrSelfService
+  },
+  {
+    path: '/manager-central',
+    name: 'ManagerCentral',
+    component: ManagerCentral
+  },
+  {
+    path: '/training-and-development',
+    name: 'TrainingAndDev',
+    component: TrainingAndDev
+  },
+  {
+    path: '/reports',
+    name: 'Reports',
+    component: Reports
+  },
+  {
+    path: '/support',
+    name: 'Support',
+    component: Support
+  },
+  {
+    path: '/payroll-central',
+    name: 'PayrollCentral',
+    component: Payroll
+  },
+  {
+    path: '/assets',
+    name: 'Assets',
+    component: Assets
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile
+  },
+ {
+    path: '/configurations',
+    name: 'Settings',
+    component: () => import('../pages/Configurations/index.vue')
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: () => import('../pages/NotFound/index.vue')
+  } -->
